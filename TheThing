@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Methodical
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            Console.WriteLine("Yo, I gotta game for ya. Ya gotta guess a numbah from 1 to 100," +
+                " and if ya get it right, ya get a bit of positive reinforcement.");
+            for (int i = 0; i<=50; i++)
+            {
+                int rand = RandomNumber(random, 1, 100);
+                int numberOfGuesses = GuessNumbah(rand);
+                Console.WriteLine(rand + " was guessed in " + numberOfGuesses + " tries.");
+            }
+            Console.ReadLine();
+        }
+
+        static int GuessNumbah(int randomNumbah)
+        {
+            int numberofGuesses = 0;
+            while (true)
+            {
+                int guess = GetNumbah("So go ahead, guess a numbah: ");
+                numberofGuesses++;
+                if (guess > randomNumbah)
+                {
+                    Console.WriteLine("Dat's a bit too high dere. Try again, you can get it.");
+                }
+                else if (guess < randomNumbah)
+                {
+                    Console.WriteLine("Bit too low dis time. Give it anotha go.");
+                }
+                else
+                {
+                    Console.WriteLine("Eyyyy! Ya got it! Nice work pal!");
+                    break;
+                    
+                }
+            }
+            return numberofGuesses;
+        }
+
+        private static int RandomNumber(Random random, int min, int max)
+        {
+            return random.Next(min, max);
+        }
+
+        static int GetNumbah(string prompt)
+        {
+            int usahNumbah;
+            string strNumbah = GetInput(prompt);
+            while (!Int32.TryParse(strNumbah, out usahNumbah))
+            {
+                Console.WriteLine("Dat ain't a numbah. Try again pally.");
+                strNumbah = GetInput(prompt);
+            }
+            return usahNumbah;
+        }
+
+        static string GetInput(string prompt)
+        {
+            Console.WriteLine(prompt);
+            string str = Console.ReadLine();
+            return str;
+        }
+        
+    }
+}
